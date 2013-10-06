@@ -65,11 +65,11 @@ static void merge_sort(int *a, int *w, int n) {
 }
 
 flexarray flexarray_new() {
-   flexarray result = emalloc(sizeof *result);
-   result->capacity = 2;
-   result->itemcount = 0;
-   result->items = emalloc(result->capacity * sizeof result->items[0]);
-   return result;
+   flexarray f = emalloc(sizeof *result);
+   f->capacity = 2;
+   f->itemcount = 0;
+   f->items = emalloc(f->capacity * sizeof f->items[0]);
+   return f;
 }
 
 void flexarray_append(flexarray f, int num) {
