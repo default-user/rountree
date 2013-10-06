@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "mylib.h"
-#include "int-queue.h"
+#include "int_queue.h"
 
 typedef struct int_queue_item *int_queue_item;
 
