@@ -17,7 +17,7 @@ typedef enum state_e {UNVISITED, VISITED_SELF, VISITED_DESCENDANTS} state_t;
 struct vertex_record {
    int distance;
    int finish;
-   int predecessor
+   int predecessor;
    state_t state;
 };
 
