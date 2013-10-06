@@ -21,7 +21,6 @@ struct vertex_record {
    state_t state;
 };
 
-
 struct graph_record {
    int size;
    int **edges;
