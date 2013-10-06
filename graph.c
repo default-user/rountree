@@ -51,16 +51,16 @@ static void visit(graph g, int source) {
 graph graph_new(int vertices) {
    int i;
    int j;
-   graph g = malloc(sizeof *g);
-   g->edges = malloc((sizeof (int *)) * vertices);
+   graph g = emalloc(sizeof *g);
+   g->edges = emalloc((sizeof (int *)) * vertices);
    for (i = 0; i < vertices; i++) {
-      g->edges[i] = malloc((sizeof (int)) * vertices);
+      g->edges[i] = emalloc((sizeof (int)) * vertices);
       for (j = 0; j < vertices; j++) {
          g->edges[i][j] = 0;
       }
    }
    g->size = vertices;
-   g->vertices = malloc(sizeof (vertex) * vertices);
+   g->vertices = emalloc(sizeof (vertex) * vertices);
    return g;
 }
 
