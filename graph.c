@@ -52,9 +52,9 @@ graph graph_new(int vertices) {
    int i;
    int j;
    graph g = emalloc(sizeof *g);
-   g->edges = emalloc((sizeof (int *)) * vertices);
+   g->edges = emalloc(sizeof (int *) * vertices);
    for (i = 0; i < vertices; i++) {
-      g->edges[i] = emalloc((sizeof (int)) * vertices);
+      g->edges[i] = emalloc(sizeof (int) * vertices);
       for (j = 0; j < vertices; j++) {
          g->edges[i][j] = 0;
       }
