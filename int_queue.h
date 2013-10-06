@@ -9,9 +9,9 @@
 
 typedef struct int_queue_record *int_queue;
 
-extern int int_queue_size(int_queue);
-
 extern int int_dequeue(int_queue);
+
+extern int int_queue_size(int_queue);
 
 extern int_queue int_queue_new();
 
