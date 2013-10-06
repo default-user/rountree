@@ -23,6 +23,14 @@ static rbt left_rotate(rbt r) {
 	return r;
 }
 
+static rbt right_rotate(rbt r) {
+	rbt tmp_r = r;
+	r = r->left;
+	tmp_r->left = r->right;
+	r->right = tmp_r;
+	return r;
+}
+
 static rbt rbt_fix(rbt r) {
 	if (IS_RED(r->left) && IS_RED(r->left->left)) {
 		if (IS_RED(r->right)) {
@@ -76,14 +84,6 @@ static rbt rbt_fix(rbt r) {
 		}
 	}
 	
-	return r;
-}
-
-static rbt right_rotate(rbt r) {
-	rbt tmp_r = r;
-	r = r->left;
-	tmp_r->left = r->right;
-	r->right = tmp_r;
 	return r;
 }
 
@@ -189,7 +189,7 @@ rbt rbt_new() {
 }
 
 void print_key(char *s) {
-	printf("%s\n", s);
+   printf("%s\n", s);
 }
 
 void rbt_inorder(rbt r, void f(char *s)) {
