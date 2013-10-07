@@ -5,8 +5,8 @@
 
 #include "mylib.h"
 
-void *emalloc(size_t s) {
-   void *memory_allocation = malloc(s);
+void *emalloc(size_t memory_requirement) {
+   void *memory_allocation = malloc(memory_requirement);
    if (NULL == memory_allocation) {
       fprintf(stderr, "!!! MEMORY ALLOCATION FAILURE !!!");
       exit(EXIT_FAILURE);
@@ -14,8 +14,8 @@ void *emalloc(size_t s) {
    return memory_allocation;
 }
 
-void *erealloc(void *p, size_t s) {
-   void *memory_reallocation = realloc(p, s);
+void *erealloc(void *memory_allocation, size_t memory_requirement) {
+   void *memory_reallocation = realloc(memory_allocation, memory_requirement);
    if (NULL == memory_reallocation) {
       fprintf(stderr, "!!! MEMORY REALLOCATION FAILURE !!!");
       exit(EXIT_FAILURE);
