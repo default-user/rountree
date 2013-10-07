@@ -157,7 +157,7 @@ rbt rbt_delete(rbt r, char *s) {
 }
 
 rbt rbt_free(rbt r) {
-   if (r == NULL) return r;
+   if (NULL == r) return NULL;
    rbt_free(r->left);
    rbt_free(r->right);
    free(r->key);
@@ -166,7 +166,7 @@ rbt rbt_free(rbt r) {
 }
 
 rbt rbt_insert(rbt r, char *s) {
-   if (r == NULL) {
+   if (NULL == r) {
       r = emalloc(sizeof *r);
       r->key = emalloc(strlen(s) + 1);
       r->colour = RED;
@@ -193,14 +193,14 @@ void print_key(char *s) {
 }
 
 void rbt_inorder(rbt r, void f(char *s)) {
-   if (r == NULL) return;
+   if (NULL == r) return;
    rbt_inorder(r->left, f);
    f(r->key);
    rbt_inorder(r->right, f);
 }
 
 void rbt_preorder(rbt r, void f(char *s)) {
-   if (r == NULL) return;
+   if (NULL == r) return;
    f(r->key);
    rbt_preorder(r->left, f);
    rbt_preorder(r->right, f);
