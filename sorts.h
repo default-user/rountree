@@ -1,5 +1,5 @@
-#ifndef MYSORTS_H_
-#define MYSORTS_H_
+#ifndef SORTS_H_
+#define SORTS_H_
 
 extern void insertion_sort(int *, int);
 
