@@ -6,31 +6,31 @@ static void merge(int *array, int *workspace, int length) {
    /* initialise indices to point to the beginning of */
    /* the left and right halves of array */
    int i = 0;
-   int j = length / 2;
-   int w = 0;
+   int left_i = 0;
+   int right_i = length / 2;
    
    /* while there are elements in both halves of array { */
-   while (i < (length / 2) && j < length) {
+   while (left_i < (length / 2) && right_i < length) {
    
       /* compare the elements at the current left and right indices */
-      if (array[i] < array[j]) {   
+      if (array[left_i] < array[right_i]) {   
       
          /* put the smallest into workspace and increment both the index */
          /* it was taken from, and the index in workspace */
-         workspace[w++] = array[i++];
+         workspace[i++] = array[left_i++];
       } else {
-         workspace[w++] = array[j++];
+         workspace[i++] = array[right_i++];
       }
    }
    
    /* add any remaining elements from left half of array to workspace */
-   while (i < (length / 2)) {
-      workspace[w++] = array[i++];
+   while (left_i < (length / 2)) {
+      workspace[i++] = array[left_i++];
    }
    
    /* add any remaining elements from right half of array to workspace */
    while (j < length) {
-      workspace[w++] = array[j++];
+      workspace[i++] = array[right_i++];
    }
 }
 
@@ -63,26 +63,26 @@ static void swap(int *a, int *b) {
 }
 
 void insertion_sort(int *a, int n) {
-   int i
-   int j
+   int great;
    int key;
+   int pos;
    
-   /* for each position p in array a except the first */
-   for (i = 1; i < n; i++) {
+   /* for each position pos in array a except the first */
+   for (pos = 1; i < n; i++) {
    
-      /* pull out the item at p and store it in variable 'key' */
-      key = a[i];
+      /* pull out the item at pos and store it in variable 'key' */
+      key = a[pos];
       
-      /* move each item that is to the left of position p,
+      /* move each item that is to the left of position pos,
          and is greater than key, one place to the right */
-      j = i - 1;
-      while (j >= 0 && a[j] > key) {
-         a[j + 1] = a[j];
-         j--;
+      great = pos - 1;
+      while (great >= 0 && a[great] > key) {
+         a[great + 1] = a[great];
+         great--;
       }
       
       /* put key in the leftmost position */
-      a[j + 1] = key;
+      a[great + 1] = key;
    }
 }
 
@@ -95,9 +95,9 @@ void merge_sort(int *a, int n) {
 }
 
 void quick_sort(int *a, int n) {
-   int i;
-   int j;
+   int left;
    int pivot;
+   int right;
    
    /* if there are less than two items in the array then stop */
    if (n < 2) return;
@@ -105,28 +105,28 @@ void quick_sort(int *a, int n) {
    /* let pivot hold a copy of the array’s first element */
    pivot = a[0];
    
-   /* let i be an index one to the left of the array’s left-most position */
-   i = -1;
+   /* let left_i be an index one to the left of the array’s left-most position */
+   left_i = -1;
    
-   /* let j be an index one to the right of the array’s right-most position */
-   j = n;
+   /* let right_i be an index one to the right of the array’s right-most position */
+   right_i = n;
    
    /* loop forever { */
    for (;;) {
    
       /*  increment i (at least once) while the value at position i < pivot */
       do {
-         i++;
-      } while (a[i] < pivot); 
+         left_i++;
+      } while (a[left_i] < pivot); 
       
       /*  decrement j (at least once) while the value at position j > pivot */
       do {
-         j--;
-      } while (a[j] > pivot);
+         right_i--;
+      } while (a[right_i] > pivot);
       
       /*  if i is to the left of j, then swap the values at their positions */
-      if (i < j) {
-         swap(&a[i], &a[j]);
+      if (left_i < right_i) {
+         swap(&a[left_i], &a[right_i]);
          
          /*  else break out of the loop */
       } else {
@@ -135,28 +135,28 @@ void quick_sort(int *a, int n) {
    }
    
    /* quicksort the left sub-array */
-   quick_sort(a, j + 1);
+   quick_sort(a, right_i + 1);
    
    /* quicksort the right sub-array */
-   quick_sort(a + j + 1, n - j - 1);
+   quick_sort(a + right_i + 1, n - right_i - 1);
 }
 
 void selection_sort(int *a, int n) {
-   int i; 
-   int j;
+   int inner_i;
+   int outer_i; 
    int sml_pos;
    
-   /* for each position i in the array a except the last one */
-   for (i = 0; i < n - 1; i++) {
+   /* for each position outer_i in the array a except the last one */
+   for (outer_i = 0; outer_i < n - 1; outer_i++) {
    
-      /* find the smallest item from position i to position (n - 1) */
+      /* find the smallest item from position outer_i to position (n - 1) */
       sml_pos = i;
-      for (j = i + 1; j < n; j++) {
-	     if (a[j] < a[sml_pos]) sml_pos = j;
+      for (inner_i = outer_i + 1; inner_i < n; inner_i++) {
+	     if (a[j] < a[sml_pos]) sml_pos = inner_i;
       }
    
-      /* swap the item you find with whatever is a position i right now */ 
-      swap(&a[i], &a[sml_pos]);
+      /* swap the item you find with whatever is a position outer_i right now */ 
+      swap(&a[outer_i], &a[sml_pos]);
    }
 }
 
