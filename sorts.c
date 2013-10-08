@@ -68,7 +68,7 @@ void insertion_sort(int *a, int n) {
    int pos;
    
    /* for each position pos in array a except the first */
-   for (pos = 1; i < n; i++) {
+   for (pos = 1; pos < n; pos++) {
    
       /* pull out the item at pos and store it in variable 'key' */
       key = a[pos];
