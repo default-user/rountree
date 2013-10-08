@@ -57,7 +57,7 @@ static void sort(int *a, int *ws, int n) {
 }
 
 void merge_sort(int *a, int n) {
-   void *workspace = malloc(sizeof f->items[0] * n);
+   void *workspace = malloc(sizeof a[0] * n);
    sort(a, workspace, n);
    free(workspace);
 }
