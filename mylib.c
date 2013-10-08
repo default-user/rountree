@@ -23,27 +23,30 @@ void *erealloc(void *memory_allocation, size_t memory_requirement) {
    return memory_reallocation;
 }
 
-int getword(char *s, int limit, FILE *stream) {
-   int c;
-   char *w = s;
-   assert(limit > 0 && s != NULL && stream != NULL);
+int getword(char *string, int limit, FILE *stream) {
+   int character;
+   char *word = string;
+   assert(limit > 0 && string != NULL && stream != NULL);
+   
    /* skip to the start of the word */
-   while (!isalnum(c = getc(stream)) && EOF != c)
+   while (!isalnum(character = getc(stream)) && EOF != character)
       ;
-   if (EOF == c) {
+   if (EOF == character) {
       return EOF;
-   } else if (--limit > 0) { /* reduce limit by 1 to allow for the \0 */
-      *w++ = tolower(c);
+      
+   /* reduce limit by 1 to allow for the \0 */
+   } else if (--limit > 0) { 
+      *word++ = tolower(character);
    }
    while (--limit > 0) {
-      if (isalnum(c = getc(stream))) {
-         *w++ = tolower(c);
-      } else if ('\'' == c) {
+      if (isalnum(character = getc(stream))) {
+         *word++ = tolower(character);
+      } else if ('\'' == character) {
          limit++;
       } else {
          break;
       }
    }
-   *w = '\0';
-   return w - s;
+   *word = '\0';
+   return word - string;
 }
