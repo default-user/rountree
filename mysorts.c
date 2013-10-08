@@ -1,5 +1,5 @@
 #include "mylib.h"
-#include "mysorts.h"
+#include "sorts.h"
 
 static void merge(int *array, int *workspace, int length) {
 
