@@ -1,4 +1,5 @@
 #include <stdlib.h>
+#include "mylib.h"
 #include "merge_sort.h"
 
 static void merge(int *array, int *workspace, int length) {
@@ -57,7 +58,7 @@ static void sort(int *a, int *ws, int n) {
 }
 
 void merge_sort(int *a, int n) {
-   void *workspace = malloc(sizeof a[0] * n);
+   void *workspace = emalloc(sizeof a[0] * n);
    sort(a, workspace, n);
    free(workspace);
 }
