@@ -5,20 +5,20 @@
 
 struct flexarray_record {
    int capacity;
-   int itemcount;
+   int item_count;
    int *items;
 };
 
-static void merge(int *array, int *workspace, int len) {
+static void merge(int *array, int *workspace, int length) {
 
    /* initialise indices to point to the beginning of */
    /* the left and right halves of array */
    int i = 0;
-   int j = (len / 2);
+   int j = length / 2;
    int w = 0;
    
    /* while there are elements in both halves of array { */
-   while (i < (len / 2) && j < len) {
+   while (i < (length / 2) && j < length) {
    
       /* compare the elements at the current left and right indices */
       if (array[i] < array[j]) {   
@@ -32,17 +32,17 @@ static void merge(int *array, int *workspace, int len) {
    }
    
    /* add any remaining elements from left half of array to workspace */
-   while (i < (len / 2)) {
+   while (i < (length / 2)) {
       workspace[w++] = array[i++];
    }
    
    /* add any remaining elements from right half of array to workspace */
-   while (j < len) {
+   while (j < length) {
       workspace[w++] = array[j++];
    }
 }
 
-static void merge_sort(int *a, int *w, int n) {
+static void merge_sort(int *a, int *ws, int n) {
    int i;
    
    /* take care of stopping condition first */
@@ -50,39 +50,39 @@ static void merge_sort(int *a, int *w, int n) {
    if (n < 2) return;
    
    /* call merge_sort on the first half of array a */
-   merge_sort(a, w, n / 2);
+   merge_sort(a, ws, n / 2);
    
    /* call merge_sort on the second half of array a */
-   merge_sort((a + (n / 2)), w, (n - (n / 2)));
+   merge_sort(a + (n / 2), ws, n - (n / 2));
    
    /* merge the two halves of array a into array w */
    merge(a, w, n);
    
    /* copy array w back into array a */
    for (i = 0; i < n; i++) { 
-      a[i] = w[i];
+      a[i] = ws[i];
    }
 }
 
 flexarray flexarray_new() {
    flexarray f = emalloc(sizeof *f);
    f->capacity = 2;
-   f->itemcount = 0;
-   f->items = emalloc(f->capacity * sizeof f->items[0]);
+   f->item_count = 0;
+   f->items = emalloc(sizeof f->items[0] * f->capacity);
    return f;
 }
 
-void flexarray_append(flexarray f, int num) {
+void flexarray_append(flexarray f, int item) {
 
-   if (f->itemcount == f->capacity) {
+   if (f->item_count == f->capacity) {
    
       /* do the old "double the capacity" trick */
       f->capacity += f->capacity;
-      f->items = erealloc(f->items, f->capacity * sizeof f->items[0]);
+      f->items = erealloc(f->items, sizeof f->items[0] * f->capacity);
    }
    
    /* insert the item in the last free space */
-   f->items[f->itemcount++] = num;
+   f->items[f->item_count++] = item;
    
 }
 
@@ -90,17 +90,17 @@ void flexarray_print(flexarray f) {
    int i;
    
    /* a "for" loop to print out each cell of f->items */
-   for (i = 0; i < f->itemcount; i++) {
+   for (i = 0; i < f->item_count; i++) {
       printf("%d\n", f->items[i]);
    }
-   fprintf(stderr, "%d Items\n", f->itemcount);
+   fprintf(stderr, "%d Items\n", f->item_count);
 }
 
 void flexarray_sort(flexarray f) {
 
    /* mergesort would be good */
-   void *workspace = emalloc(f->itemcount * sizeof f->items[0]);
-   merge_sort(f->items, workspace, f->itemcount);
+   void *workspace = emalloc(sizeof f->items[0] * f->item_count);
+   merge_sort(f->items, workspace, f->item_count);
    free(workspace);
 }
 
