@@ -95,9 +95,9 @@ void merge_sort(int *a, int n) {
 }
 
 void quick_sort(int *a, int n) {
-   int pivot;
    int i;
    int j;
+   int pivot;
    
    /* if there are less than two items in the array then stop */
    if (n < 2) return;
