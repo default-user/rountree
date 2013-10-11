@@ -63,26 +63,26 @@ static void swap(int *a, int *b) {
 }
 
 void insertion_sort(int *a, int n) {
-   int great;
+   int greater;
    int key;
-   int pos;
+   int position;
    
-   /* for each position pos in array a except the first */
-   for (pos = 1; pos < n; pos++) {
+   /* for each position in array a except the first */
+   for (position = 1; position < n; position++) {
    
       /* pull out the item at pos and store it in variable 'key' */
-      key = a[pos];
+      key = a[position];
       
       /* move each item that is to the left of position pos,
          and is greater than key, one place to the right */
-      great = pos - 1;
-      while (great >= 0 && a[great] > key) {
-         a[great + 1] = a[great];
-         great--;
+      greater = position - 1;
+      while (greater >= 0 && a[greater] > key) {
+         a[greater + 1] = a[greater];
+         greater--;
       }
       
       /* put key in the leftmost position */
-      a[great + 1] = key;
+      a[greater + 1] = key;
    }
 }
 
