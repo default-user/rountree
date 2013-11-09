@@ -67,7 +67,7 @@ static void swap_ints(int *a, int *b) {
 
 void insertion_sort(int *array, int elements) {
 	
-   int greater;
+   int greater_i;
    int key;
    int position;
    
@@ -79,15 +79,15 @@ void insertion_sort(int *array, int elements) {
       
       /* move each item that is to the left of that position,
          and is greater than key, one place to the right */
-      greater = position - 1;
+      greater_i = position - 1;
       
-      while (greater >= 0 && array[greater] > key) {
-         array[greater + 1] = array[greater];
-         greater--;
+      while (greater_i >= 0 && array[greater_i] > key) {
+         array[greater_i + 1] = array[greater_i];
+         greater_i--;
       }
       
       /* put key in the leftmost position */
-      array[greater + 1] = key;
+      array[greater_i + 1] = key;
    }
 }
 
@@ -95,7 +95,7 @@ void merge_sort(int *array, int elements) {
 	
    void *workspace = emalloc(sizeof array[0] * elements);
    
-   sort(array, workspace, elements);
+   mergessort_sort(array, workspace, elements);
    
    free(workspace);
 }
