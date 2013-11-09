@@ -35,6 +35,7 @@ static void mergesort_merge(int *array, int *workspace, int length) {
 }
 
 static void mergesort_sort(int *array, int *workspace, int elements) {
+
    int position;
    
    /* take care of stopping condition first */
@@ -101,9 +102,9 @@ void merge_sort(int *array, int elements) {
 
 void quick_sort(int *array, int elements) {
 	
-   int left;
+   int left_i;
    int pivot;
-   int right;
+   int right_i;
    
    /* if there are less than two items in the array then stop */
    if (elements < 2) return;
@@ -158,7 +159,7 @@ void selection_sort(int *array, int elements) {
       /* find the smallest item from position outer_i to position (n - 1) */
       smallest_position = i;
       for (inner_i = outer_i + 1; inner_i < elements; inner_i++) {
-	     if (array[j] < array[smallest_position]) smallest_position = inner_i;
+	     if (array[inner_i] < array[smallest_position]) smallest_position = inner_i;
       }
    
       /* swap the item you find with whatever is a position outer_i right now */ 
