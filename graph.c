@@ -27,7 +27,7 @@ struct graph_record {
    vertex *vertices;
 };
 
-static int step;
+static int step = 0;
 
 static void visit(graph g, int source) {
    int i;
