@@ -1,6 +1,13 @@
+/**
+   htable.c
+   @author TURNER. Ande,
+   Implements a HashTable ADT.
+**/
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+
 #include "htable.h"
 #include "mylib.h"
 
@@ -33,24 +40,20 @@ htable htable_new(int capacity) {
 int htable_insert(htable h, char *key) {
    int collisions = 0;
    int position = htable_word_to_int(key) % h->capacity;
-
    if (NULL == h->keys[position]) {
       h->keys[position] = emalloc(strlen(key) + 1);
       strcpy(h->keys[position], key);
       h->num_keys++;
       return 1;
    }
-
    while (NULL != h->keys[position] && strcmp(key, h->keys[position]) != 0) {
       position = (position + 1) % h->capacity;
-
       if (NULL == h->keys[position]) {
          h->keys[position] = emalloc(strlen(key) + 1);
          strcpy(h->keys[position], key);
          h->num_keys++;
          return 1;
       }
-
       if (++collisions > h->capacity) return 0;
    }
    return 0;
