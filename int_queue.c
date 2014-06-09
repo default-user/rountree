@@ -1,5 +1,12 @@
+/**
+   int_queue.c
+   @author TURNER. Ande,
+   Implements an Integer Queue ADT.
+**/
+
 #include <stdio.h>
 #include <stdlib.h>
+
 #include "mylib.h"
 #include "int_queue.h"
 
