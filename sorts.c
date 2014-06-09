@@ -98,11 +98,11 @@ void quick_sort(int *array, int elements) {
    right_i = elements;
    /* loop forever { */
    for (;;) {
-      /*  increment left_i (at least once) while the value at position i < pivot */
+      /*  increment left_i (at least once) while the value at left_i < pivot */
       do {
          left_i++;
       } while (array[left_i] < pivot); 
-      /*  decrement right_i (at least once) while the value at position j > pivot */
+      /*  decrement right_i (at least once) while the value at right_i > pivot */
       do {
          right_i--;
       } while (array[right_i] > pivot);
@@ -126,12 +126,11 @@ void selection_sort(int *array, int elements) {
    int smallest_position;
    /* for each position outer_i in the array a except the last one */
    for (outer_i = 0; outer_i < elements - 1; outer_i++) {
-      /* find the smallest item from position outer_i to position (n - 1) */
+      /* find the smallest item from position outer_i to position (elements - 1) */
       smallest_position = i;
       for (inner_i = outer_i + 1; inner_i < elements; inner_i++) {
 	     if (array[inner_i] < array[smallest_position]) smallest_position = inner_i;
       }
-   
       /* swap the item you find with whatever is a position outer_i right now */ 
       swap_ints(&array[outer_i], &array[smallest_position]);
    }
