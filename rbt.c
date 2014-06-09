@@ -1,6 +1,13 @@
+/**
+   rbt.c
+   @author TURNER. Ande,
+   Implements a Red Black Tree ADT.
+**/
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+
 #include "mylib.h"
 #include "rbt.h"
 
@@ -37,53 +44,44 @@ static rbt rbt_fix(rbt r) {
 			r->colour = RED;
 			r->left->colour = BLACK;
 			r->right->colour = BLACK;
-			
 		} else {
 			r = right_rotate(r);
 			r->colour = BLACK;
 			r->right->colour = RED;
-			
 		}
 	} else if (IS_RED(r->left) && IS_RED(r->left->right)) {
 		if (IS_RED(r->right)) {
 			r->colour = RED;
 			r->left->colour = BLACK;
 			r->right->colour = BLACK;
-			
 		} else {
 			r->left = left_rotate(r->left);
 			r = right_rotate(r);
 			r->colour = BLACK;
 			r->right->colour = RED;
-			
 		}
 	} else if (IS_RED(r->right) && IS_RED(r->right->left)) {
 		if (IS_RED(r->left)) {
 			r->colour = RED;
 			r->left->colour = BLACK;
 			r->right->colour = BLACK;
-			
 		} else {
 			r->right = right_rotate(r->right);
 			r = left_rotate(r);
 			r->colour = BLACK;
 			r->left->colour = RED;
-			
 		}
 	} else if (IS_RED(r->right) && IS_RED(r->right->right)) {
 		if (IS_RED(r->left)) {
 			r->colour = RED;
 			r->left->colour = BLACK;
 			r->right->colour = BLACK;
-			
 		} else {
 			r = left_rotate(r);
 			r->colour = BLACK;
 			r->left->colour = RED;
-			
 		}
 	}
-	
 	return r;
 }
 
@@ -102,57 +100,42 @@ int rbt_search(rbt r, char *s) {
 rbt rbt_delete(rbt r, char *s) {
    rbt tmp_r;
    char *tmp_str;
-   
    if (r == NULL) {
       return r;
-      
    } else if (strcmp(s, r->key) == 0) {
-     
       if (r->left == NULL && r->right == NULL) {
          free(r->key);
          free(r);
          r = NULL;
          return r;
-         
       } else if (r->left != NULL && r->right != NULL) {
          /* LEFTMOST = tmp_r */
          tmp_r = r->right;
-         
          while (tmp_r->left != NULL) {
-
             tmp_r = tmp_r->left; 
          }
-
          tmp_str = tmp_r->key;
          tmp_r->key = r->key;
          r->key = tmp_str;
-
          r->right = rbt_delete(r->right, s);
-         
       } else {
-         
          if (r->left != NULL) {
             tmp_r = r;
             r = r->left;
             free(tmp_r->key);
             free(tmp_r);
-            
          } else {
             tmp_r = r;
             r = r->right;
             free(tmp_r->key);
             free(tmp_r);
-            
          }
       }
-
    } else if (strcmp(s, r->key) < 0) {
       r->left = rbt_delete(r->left, s);
-      
    } else {
       r->right = rbt_delete(r->right, s); 
    }
-
    return r;
 }
 
@@ -180,7 +163,6 @@ rbt rbt_insert(rbt r, char *s) {
    } else {
       r->right = rbt_insert(r->right, s);
    }
-
    return rbt_fix(r);
 }
 
