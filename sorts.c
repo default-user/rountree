@@ -127,7 +127,7 @@ void selection_sort(int *array, int elements) {
    /* for each position outer_i in the array a except the last one */
    for (outer_i = 0; outer_i < elements - 1; outer_i++) {
       /* find the smallest item from position outer_i to position (elements - 1) */
-      smallest_position = i;
+      smallest_position = outer_i;
       for (inner_i = outer_i + 1; inner_i < elements; inner_i++) {
 	     if (array[inner_i] < array[smallest_position]) smallest_position = inner_i;
       }
