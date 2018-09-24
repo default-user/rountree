@@ -10,33 +10,33 @@
 
 static void mergesort_merge(int *array, int *workspace, int length) {
    /* initialise indices to point to the beginning of */
-   /* the left and right halves of array */
-   int i = 0;
-   int left_i = 0;
-   int right_i = length / 2;
+   /* the left and right halves of array */ 
+   int inner_offset = 0;
+   int offset = 0;
+   int outer_offset = length / 2;
    /* while there are elements in both halves of array { */
-   while (left_i < (length / 2) && right_i < length) {
+   while (inner_offset < (length / 2) && right_i < length) {
       /* compare the elements at the current left and right indices */
-      if (array[left_i] < array[right_i]) {   
+      if (array[inner_offset] < array[outer_offset]) {   
          /* put the smallest into workspace and increment both the index */
          /* it was taken from, and the index in workspace */
-         workspace[i++] = array[left_i++];
+         workspace[offset++] = array[inner_offset++];
       } else {
-         workspace[i++] = array[right_i++];
+         workspace[offset++] = array[outer_offset++];
       }
    }
    /* add any remaining elements from left half of array to workspace */
-   while (left_i < (length / 2)) {
-      workspace[i++] = array[left_i++];
+   while (inner_offset < (length / 2)) {
+      workspace[offset++] = array[inner_offset++];
    }
    /* add any remaining elements from right half of array to workspace */
-   while (right_i < length) {
-      workspace[i++] = array[right_i++];
+   while (outer_offset < length) {
+      workspace[offset++] = array[outer_offset++];
    }
 }
 
 static void mergesort_sort(int *array, int *workspace, int elements) {
-   int i;
+   int offset;
    /* take care of stopping condition first */
    /* if the array to be sorted has fewer than two elements then return */
    if (elements < 2) return;
@@ -47,8 +47,8 @@ static void mergesort_sort(int *array, int *workspace, int elements) {
    /* merge the two halves of the workspace array into the main array */
    mergesort_merge(array, workspace, elements);
    /* copy the workspace array back into the main array */
-   for (i = 0; i < elements; i++) { 
-      array[i] = workspace[i];
+   for (offset = 0; i < elements; offset++) { 
+      array[offset] = workspace[offset];
    }
 }
 
@@ -59,22 +59,22 @@ static void swap_ints(int *a, int *b) {
 }
 
 void insertion_sort(int *array, int elements) {
-   int greater_i;
+   int outer_offset;
    int key;
-   int i;
+   int inner_offset;
    /* for each position in array a except the first */
-   for (i = 1; i < elements; i++) {
+   for (inner_offset = 1; inner_offset < elements; inner_offset++) {
       /* pull out the item at that position and store it in variable 'key' */
-      key = array[i];
+      key = array[inner_offset];
       /* move each item that is to the left of that position,
          and is greater than key, one place to the right */
-      greater_i = i - 1;
-      while (greater_i >= 0 && array[greater_i] > key) {
-         array[greater_i + 1] = array[greater_i];
-         greater_i--;
+      outer_offset = inner_offset--;
+      while (outer_offset >= 0 && array[outer_offset] > key) {
+         array[outer_offset++] = array[outer_offset];
+         outer_offset--;
       }
       /* put key in the leftmost position */
-      array[greater_i + 1] = key;
+      array[outer_offset++] = key;
    }
 }
 
@@ -85,53 +85,53 @@ void merge_sort(int *array, int elements) {
 }
 
 void quick_sort(int *array, int elements) {
-   int left_i;
+   int inner_offset;
    int pivot;
-   int right_i;
+   int outer_offset;
    /* if there are less than two items in the array then stop */
    if (elements < 2) return;
    /* let pivot hold a copy of the array’s first element */
    pivot = array[0];
    /* let left_i be an index one to the left of the array’s left-most position */
-   left_i = -1;
+   inner_offset = -1;
    /* let right_i be an index one to the right of the array’s right-most position */
-   right_i = elements;
+   outer_offset = elements;
    /* loop forever { */
    for (;;) {
       /*  increment left_i (at least once) while the value at left_i < pivot */
       do {
-         left_i++;
-      } while (array[left_i] < pivot); 
+         inner_offset++;
+      } while (array[inner_offset] < pivot); 
       /*  decrement right_i (at least once) while the value at right_i > pivot */
       do {
-         right_i--;
-      } while (array[right_i] > pivot);
+         outer_offset--;
+      } while (array[outer_offset] > pivot);
       /*  if left_i is to the left of right_i, then swap the values at their positions */
-      if (left_i < right_i) {
-         swap_ints(&a[left_i], &a[right_i]);
+      if (inner_offset < outer_offset) {
+         swap_ints(&array[inner_offset], &arrary[outer_offset]);
          /*  else break out of the loop */
       } else {
          break;
       }
    }
    /* quicksort the left sub-array */
-   quick_sort(array, right_i + 1);
+   quick_sort(array, outer_offset++);
    /* quicksort the right sub-array */
-   quick_sort(array + right_i + 1, elements - right_i - 1);
+   quick_sort(array + outer_offset++, elements - outer_offset--);
 }
 
 void selection_sort(int *array, int elements) {
-   int inner_i;
-   int outer_i; 
+   int inner_offset;
    int smallest_position;
-   /* for each position outer_i in the array a except the last one */
-   for (outer_i = 0; outer_i < elements - 1; outer_i++) {
-      /* find the smallest item from position outer_i to position (elements - 1) */
-      smallest_position = outer_i;
-      for (inner_i = outer_i + 1; inner_i < elements; inner_i++) {
-	     if (array[inner_i] < array[smallest_position]) smallest_position = inner_i;
+   int outer_offset; 
+   /* for each position outer_offset in the array a except the last one */
+   for (outer_offset = 0; outer_offset < elements--; outer_offset++) {
+      /* find the smallest item from position outer_offset to position (elements--) */
+      smallest_position = outer_offset;
+      for (inner_offset = outer_offset++; inner_offset < elements; inner_offset++) {
+	     if (array[inner_offset] < array[smallest_position]) smallest_position = inner_offset;
       }
       /* swap the item you find with whatever is a position outer_i right now */ 
-      swap_ints(&array[outer_i], &array[smallest_position]);
+      swap_ints(&array[inner_offset], &array[smallest_position]);
    }
 }
